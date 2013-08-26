@@ -62,8 +62,13 @@ function assets.loadImage(file, name)
   return img
 end
 
-function assets.loadSfx(file, name, long)
-  local sound = Sound:new(assets.getPath(file, "sfx"), long or false)
+function assets.loadSfx(file, name, volume, long)
+  if type(name) == "number" then
+    volume = name
+    name = nil
+  end
+  
+  local sound = Sound:new(assets.getPath(file, "sfx"), long or false, volume)
   rawset(assets.sfx, name or assets.getName(file), sound)
   return sound
 end
