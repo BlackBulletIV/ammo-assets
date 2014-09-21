@@ -75,7 +75,7 @@ function assets.loadMusic(file, name)
 end
 
 function assets.loadEffect(file, name)
-  local effect = love.graphics.newPixelEffect(love.filesystem.read(assets.getPath(file, "effect")))
+  local effect = love.graphics.newShader(love.filesystem.read(assets.getPath(file, "effect")))
   rawset(assets.effects, name or assets.getName(file), effect)
   return effect
 end
