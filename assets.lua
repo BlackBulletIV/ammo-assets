@@ -6,7 +6,7 @@ assets.path = "assets"
 assets.imagePath = "images"
 assets.sfxPath = "sfx"
 assets.musicPath = "music"
-assets.effectPath = "effects"
+assets.shaderPath = "shaders"
 assets.fontPath = "fonts"
 
 assets.images = setmetatable({}, {
@@ -39,7 +39,7 @@ assets.music = setmetatable({}, {
   end
 })
 
-assets.effects = setmetatable({}, {
+assets.shaders = setmetatable({}, {
   __newindex = function(self, key, value)
     if type(value) == "string" then
       assets.loadEffect(value, key)
@@ -53,7 +53,7 @@ assets.effects = setmetatable({}, {
 assets.fonts = {}
 
 function assets.get(key)
-  return assets.images[key] or assets.sfx[key] or assets.music[key] or assets.effects[key] or assets.fonts[key]
+  return assets.images[key] or assets.sfx[key] or assets.music[key] or assets.shaders[key] or assets.fonts[key]
 end
 
 function assets.loadImage(file, name)
@@ -79,11 +79,11 @@ function assets.loadMusic(file, name)
   return sound
 end
 
-function assets.loadEffect(file, name)
-  local source = love.filesystem.read(assets.getPath(file, "effect"))
-  local effect = love.graphics.newShader(source)
-  rawset(assets.effects, name or assets.getName(file), effect)
-  return effect
+function assets.loadShader(file, name)
+  local source = love.filesystem.read(assets.getPath(file, "shader"))
+  local shader = love.graphics.newShader(source)
+  rawset(assets.shaders, name or assets.getName(file), shader)
+  return shader
 end
 
 function assets.loadFont(file, size, name)
